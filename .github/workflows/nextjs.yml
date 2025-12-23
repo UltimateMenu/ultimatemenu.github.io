@@ -25,38 +25,28 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          # REMOVE cache or set to 'npm' with package.json only
           cache: 'npm'
-      
-      # This step will generate a temporary lock file if none exists
-      - name: Install dependencies
-        id: install-deps
-        run: |
-          # Check if lock file exists
-          if [ -f "package-lock.json" ] || [ -f "yarn.lock" ]; then
-            echo "lock-file-exists=true" >> $GITHUB_OUTPUT
-            npm ci --legacy-peer-deps
-          else
-            echo "lock-file-exists=false" >> $GITHUB_OUTPUT
-            # Generate lock file but don't save it permanently
-            npm install --legacy-peer-deps --no-save
-          fi
       
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
           static_site_generator: next
       
-      # Update cache key to work with or without lock file
+      # SIMPLE INSTALL - NO LOCK FILE CHECKING
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+      
+      # FIXED CACHE STEP - No lock file dependency
       - name: Restore cache
         uses: actions/cache@v4
         with:
           path: |
             .next/cache
-            ~/.npm
-          # Use package.json hash if no lock file exists
-          key: ${{ runner.os }}-nextjs-${{ steps.install-deps.outputs.lock-file-exists == 'true' && hashFiles('package-lock.json', 'yarn.lock') || hashFiles('package.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          # Use only package.json, not lock files
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('package.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
           restore-keys: |
-            ${{ runner.os }}-nextjs-
+            ${{ runner.os }}-nextjs-${{ hashFiles('package.json') }}-
       
       - name: Build with Next.js
         run: npx next build
