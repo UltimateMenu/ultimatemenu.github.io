@@ -107,7 +107,7 @@ export function Hero() {
               className="w-full sm:w-auto gap-2 bg-[#5865F2] hover:bg-[#4752C4] text-white text-sm md:text-base transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(88,101,242,0.5)]"
               asChild
             >
-              <a href="/discord" target="_blank" rel="noopener noreferrer">
+              <a href="https://l7neg.uk.to/discord" target="_blank" rel="noopener noreferrer">
                 <MessageCircle className="h-4 w-4 md:h-5 md:w-5" />
                 Join Discord Server
               </a>
