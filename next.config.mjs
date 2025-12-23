@@ -7,6 +7,9 @@ const nextConfig = {
     unoptimized: true,
   },
   output: 'export',
+  trailingSlash: true,
+  reactStrictMode: false,
+  distDir: '.next',
 }
 
 export default nextConfig

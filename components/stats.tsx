@@ -71,6 +71,8 @@ export function Stats() {
     stars: 0,
     forks: 0,
   })
+  const [totalViews, setTotalViews] = useState(0)
+  const [dashboardUrl, setDashboardUrl] = useState("")
 
   useEffect(() => {
     // Fetch GitHub stats
@@ -159,23 +161,30 @@ export function Stats() {
             viewport={{ once: true }}
             className="group relative overflow-hidden rounded-lg border border-border bg-card p-8 text-center transition-all hover:border-primary/50 hover:scale-105"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-            <div className="relative">
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                <Globe className="h-6 w-6 text-primary" />
-              </div>
-              <div className="font-mono text-4xl font-bold text-primary">
-                <FreeVisitorCounter
-                  totalCountPrefix=""
-                  totalCountSuffix=""
-                  todayCountPrefix=""
-                  todayCountSuffix=""
-                  separator=""
-                  showTotalFirst={true}
-                />
-              </div>
-              <div className="mt-2 text-sm text-muted-foreground">Page Views</div>
+            <div style={{ display: "none" }}>
+              <FreeVisitorCounter
+                onLoad={(data: any) => {
+                  setTotalViews(data.totalCount)
+                  setDashboardUrl(data.dashboardUrl)
+                }}
+              />
             </div>
+            <a
+              href={dashboardUrl || "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block"
+              style={{ pointerEvents: dashboardUrl ? "auto" : "none" }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+              <div className="relative">
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+                  <Globe className="h-6 w-6 text-primary" />
+                </div>
+                <AnimatedCounter end={totalViews} />
+                <div className="mt-2 text-sm text-muted-foreground">Page Views</div>
+              </div>
+            </a>
           </motion.div>
         </div>
       </div>

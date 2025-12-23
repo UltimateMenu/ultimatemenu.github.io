@@ -126,8 +126,8 @@
 }
 
 /* Disable dragging and right-click selection for media */
-img,
-video {
+/* Disable drag and selection globally */
+body {
   -webkit-user-drag: none;
   user-select: none;
   -moz-user-select: none;
@@ -135,6 +135,31 @@ video {
   -ms-user-select: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Allow selection in code blocks */
+pre,
+code {
+  user-select: text;
+  -moz-user-select: text;
+  -webkit-user-select: text;
+  -ms-user-select: text;
+}
+
+/* Explicitly disable dragging for images and videos */
+img,
+video {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+
+/* Ensure links with hidden href still look clickable */
+a[data-href] {
+  cursor: pointer;
 }
 
 /* Added custom keyframe animations */

@@ -40,7 +40,7 @@ export function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
             </span>
-            <span className="text-primary">Now Available - Version 2.5.0</span>
+            <span className="text-primary">Now Available - Version 2.8 Beta</span>
           </div>
 
           <h1
@@ -107,7 +107,7 @@ export function Hero() {
               className="w-full sm:w-auto gap-2 bg-[#5865F2] hover:bg-[#4752C4] text-white text-sm md:text-base transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(88,101,242,0.5)]"
               asChild
             >
-              <a href="https://discord.gg/your-invite" target="_blank" rel="noopener noreferrer">
+              <a href="/discord" target="_blank" rel="noopener noreferrer">
                 <MessageCircle className="h-4 w-4 md:h-5 md:w-5" />
                 Join Discord Server
               </a>

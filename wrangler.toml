@@ -1,0 +1,6 @@
+name = "ultimatemenu"
+compatibility_date = "2025-01-01"
+
+[build]
+command = "npm run build"
+output_dir = "out"

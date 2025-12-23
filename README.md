@@ -6,6 +6,8 @@ A modern, dynamic showcase website for **UltimateMenu** - the most advanced YimM
 
 - **GitHub Pages**: [https://ultimatemenu.github.io](https://ultimatemenu.github.io)
 - **Vercel**: [https://ultimatemenu.vercel.app](https://ultimatemenu.vercel.app)
+- **Cloudflare Pages**: [https://ultimatemenu.pages.dev](https://ultimatemenu.pages.dev)
+- **Netlify**: [https://ultimatemenu.netlify.app](https://ultimatemenu.netlify.app)
 
 ## 🛠️ Built With
 
@@ -130,56 +132,20 @@ npm start
 
 ## 📦 Deployment
 
-### GitHub Pages
+For detailed deployment instructions for **Cloudflare Pages**, **Vercel**, **Netlify**, or **GitHub Pages**, please see the [**Complete Deployment Guide**](DEPLOYMENT.md).
 
-This project is configured for automatic deployment to GitHub Pages using GitHub Actions.
-
-#### Setup Instructions:
-
-1. **Push to GitHub Repository**
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   git remote add origin https://github.com/UltimateMenu/ultimatemenu.github.io.git
-   git branch -M main
-   git push -u origin main
-   ```
-
-2. **Enable GitHub Pages**
-   - Go to your repository settings
-   - Navigate to **Pages** section
-   - Under **Source**, select **GitHub Actions**
-
-3. **Automatic Deployment**
-   - The site will automatically build and deploy on every push to `main` branch
-   - GitHub Actions workflow is located in `.github/workflows/deploy.yml`
-   - Build artifacts are uploaded to the `gh-pages` branch
-   - Site will be available at: `https://ultimatemenu.github.io`
-
-#### Manual Build for GitHub Pages:
-
-```bash
-# Build the static site
-npm run build
-
-# The output will be in the 'out' directory
-# Upload the contents of 'out' to your hosting provider
-```
-
-### Vercel
-
-1. Import your GitHub repository to Vercel
-2. Vercel will auto-detect Next.js and deploy
-3. No additional configuration needed
-4. Site will be available at: `https://ultimatemenu.vercel.app`
+### Quick Summary
+- **GitHub Pages**: Configured via GitHub Actions (`.github/workflows/deploy.yml`).
+- **Cloudflare Pages**: Connect repo, set build command to `npm run build`, and output dir to `out`.
+- **Vercel**: Import repo, auto-detected.
+- **Netlify**: Import repo, set build command to `npm run build`, and publish dir to `out`.
 
 ## 🎨 Customization
 
 ### OG Meta Tags & Embeds
 The site includes comprehensive Open Graph and Twitter Card meta tags:
 - **Embed Color**: `#00FF00` (green theme)
-- **Embed Image**: `1.png` from screenshots
+- **Embed Image**: `UltimateMenu.png` in public folder
 - **Theme Color**: Matches the primary green color
 - **Discord/Twitter**: Rich embeds with image preview
 
@@ -218,7 +184,7 @@ Contributions, issues, and feature requests are welcome!
 
 ## 🙏 Acknowledgments
 
-- Built with ❤️ by L7NEG using [Google antigravity 🤯](https://antigravity.google/)
+- Built with ❤️ by L7NEG using [Google antigravity 🤯](https://antigravity.google.com/)
 - Powered by YimMenu Lua API
 - Design inspired by modern web aesthetics from [v0.dev](https://v0.dev/)
 
