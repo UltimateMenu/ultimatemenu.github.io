@@ -57,7 +57,7 @@ function AnimatedCounter({ end, duration = 5000, suffix = "" }: { end: number; d
 
 async function fetchGitHubStats() {
   try {
-    const response = await fetch("https://api.github.com/repos/ultimatemenu/ultimatemenu")
+    const response = await fetch("https://api.github.com/repos/UltimateMenu/UltimateMenu")
     if (!response.ok) return null
     return await response.json()
   } catch (error) {
@@ -114,7 +114,7 @@ export function Stats() {
             className="group relative overflow-hidden rounded-lg border border-border bg-card p-8 text-center transition-all hover:border-primary/50 hover:scale-105"
           >
             <a
-              href="https://github.com/ultimatemenu/ultimatemenu"
+              href="https://github.com/UltimateMenu/UltimateMenu/stargazers"
               target="_blank"
               rel="noopener noreferrer"
               className="block"
@@ -138,7 +138,7 @@ export function Stats() {
             className="group relative overflow-hidden rounded-lg border border-border bg-card p-8 text-center transition-all hover:border-primary/50 hover:scale-105"
           >
             <a
-              href="https://github.com/ultimatemenu/ultimatemenu/forks"
+              href="https://github.com/UltimateMenu/UltimateMenu/forks"
               target="_blank"
               rel="noopener noreferrer"
               className="block"
