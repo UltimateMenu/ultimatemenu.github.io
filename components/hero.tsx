@@ -80,7 +80,7 @@ export function Hero() {
               className="group relative w-full sm:w-auto gap-2 text-sm md:text-base transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] overflow-hidden"
               asChild
             >
-              <a href="https://github.com/ultimatemenu/ultimatemenu/releases/latest" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/UltimateMenu/UltimateMenu/releases/latest" target="_blank" rel="noopener noreferrer">
                 <span className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent z-10" />
                 <Download className="h-4 w-4 md:h-5 md:w-5" />
                 Download Now
@@ -91,7 +91,7 @@ export function Hero() {
               className="w-full sm:w-auto gap-2 text-sm md:text-base bg-white text-black hover:bg-white/90 transition-all hover:scale-105"
               asChild
             >
-              <a href="https://github.com/ultimatemenu/ultimatemenu" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/UltimateMenu/UltimateMenu" target="_blank" rel="noopener noreferrer">
                 <Github className="h-4 w-4 md:h-5 md:w-5" />
                 View on GitHub
               </a>
