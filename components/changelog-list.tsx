@@ -40,7 +40,7 @@ export function ChangelogList({ releases }: ChangelogListProps) {
                     <p className="text-muted-foreground">
                         No releases found. Check back later or visit our{" "}
                         <a
-                            href="https://github.com/ultimatemenu/ultimatemenu/releases"
+                            href="https://github.com/UltimateMenu/UltimateMenu/releases"
                             className="text-primary hover:underline"
                             target="_blank"
                             rel="noopener noreferrer"
