@@ -32,7 +32,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://github.com/ultimatemenu/ultimatemenu/wiki"
+                  href="https://github.com/UltimateMenu/UltimateMenu/wiki"
                   className="text-muted-foreground hover:text-primary transition-colors"
                   target="_blank"
                 >
@@ -65,7 +65,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://github.com/ultimatemenu/ultimatemenu/discussions"
+                  href="https://github.com/UltimateMenu/UltimateMenu/discussions"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-primary transition-colors"
@@ -85,7 +85,7 @@ export function Footer() {
                 className="h-9 w-9 bg-transparent hover:bg-primary/10 hover:text-primary transition-all"
                 asChild
               >
-                <a href="https://github.com/ultimatemenu/ultimatemenu" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/UltimateMenu/UltimateMenu" target="_blank" rel="noopener noreferrer">
                   <Github className="h-4 w-4" />
                 </a>
               </Button>
