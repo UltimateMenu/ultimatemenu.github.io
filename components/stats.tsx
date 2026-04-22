@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useRef } from "react"
 import { Star, GitFork, Globe } from "lucide-react"
-import { FreeVisitorCounter } from '@rundevelrun/free-visitor-counter'
 import { motion } from "framer-motion"
 
 function AnimatedCounter({ end, duration = 5000, suffix = "" }: { end: number; duration?: number; suffix?: string }) {
@@ -72,7 +71,6 @@ export function Stats() {
     forks: 0,
   })
   const [totalViews, setTotalViews] = useState(0)
-  const [dashboardUrl, setDashboardUrl] = useState("")
 
   useEffect(() => {
     // Fetch GitHub stats
@@ -85,6 +83,14 @@ export function Stats() {
         }))
       }
     })
+
+    // Fetch visitor count
+    fetch("https://ghvc.vercel.app/api?username=ultimatemenu&format=json")
+      .then(res => res.json())
+      .then(data => {
+        setTotalViews(data.value)
+      })
+      .catch(err => console.error("Counter fetch failed", err))
   }, [])
 
   return (
@@ -161,20 +167,8 @@ export function Stats() {
             viewport={{ once: true }}
             className="group relative overflow-hidden rounded-lg border border-border bg-card p-8 text-center transition-all hover:border-primary/50 hover:scale-105"
           >
-            <div style={{ display: "none" }}>
-              <FreeVisitorCounter
-                onLoad={(data: any) => {
-                  setTotalViews(data.totalCount)
-                  setDashboardUrl(data.dashboardUrl)
-                }}
-              />
-            </div>
-            <a
-              href={dashboardUrl || "#"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block"
-              style={{ pointerEvents: dashboardUrl ? "auto" : "none" }}
+            <div
+              className="block cursor-default"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
               <div className="relative">
@@ -184,7 +178,7 @@ export function Stats() {
                 <AnimatedCounter end={totalViews} />
                 <div className="mt-2 text-sm text-muted-foreground">Page Views</div>
               </div>
-            </a>
+            </div>
           </motion.div>
         </div>
       </div>
