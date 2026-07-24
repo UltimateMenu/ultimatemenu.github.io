@@ -10,22 +10,22 @@ import { Maximize2 } from "lucide-react"
 
 const screenshots = [
   {
-    url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/1.png",
+    url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/7.png",
   },
   {
-    url: "https://ultimatemenu.github.io/ScreenShots/ModestMenu/2.png",
+    url: "https://ultimatemenu.github.io/ScreenShots/ModestMenu/8.png",
   },
   {
-    url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/3.png",
+    url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/9.png",
   },
   {
-    url: "https://ultimatemenu.github.io/ScreenShots/ModestMenu/4.png",
+    url: "https://ultimatemenu.github.io/ScreenShots/ModestMenu/10.png",
   },
   {
-    url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/5.png",
+    url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/11.png",
   },
   {
-    url: "https://ultimatemenu.github.io/ScreenShots/ModestMenu/6.png",
+    url: "https://ultimatemenu.github.io/ScreenShots/ModestMenu/12.png",
   },
 ]
 

@@ -10,19 +10,19 @@ import Autoplay from "embla-carousel-autoplay"
 
 const screenshots = [
   {
-    url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/10.png",
+    url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/15.png",
   },
   {
-    url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/11.png",
+    url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/16.png",
   },
   {
-    url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/12.png",
+    url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/17.png",
   },
   {
-    url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/13.png",
+    url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/18.png",
   },
   {
-    url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/14.png",
+    url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/19.png",
   },
 ]
 
