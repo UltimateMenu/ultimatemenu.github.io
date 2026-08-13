@@ -19,13 +19,13 @@ const screenshots = [
     url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/9.png",
   },
   {
-    url: "https://ultimatemenu.github.io/ScreenShots/ModestMenu/10.png",
+    url: "https://ultimatemenu.github.io/ScreenShots/ModestMenu/11.png",
   },
   {
-    url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/11.png",
+    url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/12.png",
   },
   {
-    url: "https://ultimatemenu.github.io/ScreenShots/ModestMenu/12.png",
+    url: "https://ultimatemenu.github.io/ScreenShots/ModestMenu/13.png",
   },
 ]
 
