@@ -2,36 +2,68 @@ import { Footer } from "@/components/footer"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
-import rehypeRaw from 'rehype-raw'
-import { useState } from 'react'
-import Lightbox from 'yet-another-react-lightbox'
-import 'yet-another-react-lightbox/styles.css'
-import Zoom from 'yet-another-react-lightbox/plugins/zoom'
-import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails'
-import 'yet-another-react-lightbox/plugins/thumbnails.css'
+import { MarkdownRenderer } from "@/components/markdown-renderer"
 
-// ... (same content as above)
+const installationContent = `# 1. Make sure **BattlEye** is disabled in the Rockstar Games Launcher settings.
+<img width="1084" alt="Screenshot 2024-09-22 174711" src="https://github.com/user-attachments/assets/ec1b9eb3-113f-4031-b1a7-6d38dad63c69" />
+
+
+# 2. Input the command [B]-nobattleye[/B] in 'commandline.txt' located in your game directory EPIC GAMES/STEAM etc..
+<img width="1271" alt="Screenshot 2024-09-22 174643" src="https://github.com/user-attachments/assets/068df41e-fdda-4cbf-baf4-eb3e638709d1" />
+
+
+# 3. Start The Command Line Prompt as **Administrator** and simply enter **sc delete BEService** to remove BattleEye service completely.
+<img width="673" alt="Screenshot 2024-09-22 172051" src="https://github.com/user-attachments/assets/a92342fc-4d71-455e-b8ce-feb8eac57a0b" />
+
+
+# 4. Let the game load to the main menu. Do not load story or online mode.
+
+# If auto-loading into story or online mode is enabled, disable it in the game settings. <-----------------
+# After disabling auto-loading, restart the game
+
+# 5. Once the game is at the main menu, inject the **YimMenu** using **[Extreme Injector](https://github.com/master131/ExtremeInjector)** / **[Fate Injector](https://github.com/fligger/FateInjector)** /  **[Xenos](https://github.com/DarthTon/Xenos)** or **[Process Hacker](https://github.com/PKRoma/ProcessHacker)**.
+<img width="1280" alt="Screenshot 2024-09-24 080321" src="https://github.com/user-attachments/assets/1209d715-053c-4ef4-b0f3-6a5f6c8eedc4" />
+
+
+# 6. AFTER THE DLL IS INJECTED SELECT TO GO TO STORY MODE FIRST
+
+# 7. Once you are in the story mode open **YIM menu**, select **Network** and join **invite only sessions**
+
+# 8. FOLLOW THE STEPS CORRECTLY AND CHECK OUT THE IMAGES FOR YOUR REFERENCE
+
+# 9. Use Either **[Ultimate Menu For YimMenu](https://github.com/UltimateMenu/UltimateMenu/)** or **[Silent Night Yim Lua (Discontinued)](https://silent-night.pp.ua)** or **[Any Money Method Script From github.com/YimMenu-Lua](https://github.com/YimMenu-Lua)**
+
+# 10. Done Enjoy <3 ❤️ 
+
+ <details> 
+  <summary><h1>Detected Money Method (Use At Your Own Risk) </h1></summary>
+
+# **Go to Ultimate Money Methods Menu -> Nightclub > select 250k loop/15s (Ultimate Menu For YimMenu)**
+
+# or 
+
+# **Go to Money tool -> Nightclub Utilities-> select 250k loop/15s (Silent Night Yim Lua File)**
+
+# **Don't forget to turn on the No Idle Kick In Self Section Of YimMenu**
+
+# **That's it you can just keep doing your other works or just go to sleep**
+![YimMenu BE ac Disabled](https://github.com/user-attachments/assets/a8118eed-33f9-4fb3-ab93-9675fbebafa3)
+
+
+# **If the safe loop is freezing then, just do it manually**
+# **Open the safe and stand close by then start clicking on "Fill Nightclub Safe" in silent script or self > "fill nightclub popularity" in ultimate menu for yimmenu script**
+
+# _**After loading money, I just stopped using Modz coz now i'm a freaking Billionaire who just lavishly roam around the city in luxury cars & planes, join others heists if i get bored in the public lobbies with Battle Eye enabled!**_
+</details>
+
+# Tutorial Source Link: [here](https://www.unknowncheats.me/forum/grand-theft-auto-v/662823-bypass-battle-eye-anti-cheat-gtav.html)
+
+# Mirrored Tutorial Link On L7NEG Forums: [here](https://forums.l7neg.uk.to/threads/how-to-use-yimmenu-after-battleye-anticheat-update.16/)
+
+# More Tutorials For Money And Unlocks Are Available in #tutorials Channel On L7NEG Community Discord Server [Join Now](https://i.l7neg.uk.to/discord)
+`
 
 export default function InstallationPage() {
-  const [lightboxOpen, setLightboxOpen] = useState(false)
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  
-  // Extract all image URLs from the content
-  const imageUrls = installationContent.match(/!\[.*?\]\((.*?)\)/g)?.map(match => {
-    const urlMatch = match.match(/\((.*?)\)/)
-    return urlMatch ? urlMatch[1] : null
-  }).filter(Boolean) || []
-
-  // Convert to the format expected by the lightbox
-  const slides = imageUrls.map(url => ({ src: url }))
-
-  const openLightbox = (index) => {
-    setCurrentImageIndex(index)
-    setLightboxOpen(true)
-  }
-
   return (
     <main className="min-h-screen bg-background pt-24">
       <div className="container px-4 py-12">
@@ -50,69 +82,9 @@ export default function InstallationPage() {
             Follow these steps to install and configure UltimateMenu for GTA V
           </p>
 
-          <div className="prose prose-invert max-w-none">
-            <ReactMarkdown 
-              remarkPlugins={[remarkGfm]}
-              rehypePlugins={[rehypeRaw]}
-              components={{
-                img: ({ src, alt }) => {
-                  const index = imageUrls.indexOf(src)
-                  return (
-                    <div className="relative group">
-                      <img 
-                        src={src} 
-                        alt={alt} 
-                        className="rounded-lg my-4 border border-border cursor-pointer hover:opacity-90 transition-opacity"
-                        onClick={() => openLightbox(index)}
-                        style={{ maxWidth: '100%', height: 'auto' }}
-                      />
-                      <div className="absolute bottom-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                        Click to enlarge
-                      </div>
-                    </div>
-                  )
-                },
-                blockquote: ({ children }) => {
-                  const childrenStr = String(children)
-                  if (childrenStr.includes('[!NOTE]')) {
-                    return (
-                      <div className="bg-blue-500/10 border-l-4 border-blue-500 p-4 my-4 rounded-r-lg">
-                        <div className="flex items-start gap-2">
-                          <span className="text-blue-500 text-xl">ℹ️</span>
-                          <div className="text-blue-300">
-                            {childrenStr.replace('[!NOTE]', '').trim()}
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  }
-                  return (
-                    <blockquote className="border-l-4 border-primary pl-4 my-4 bg-secondary/50 p-4 rounded-r-lg">
-                      {children}
-                    </blockquote>
-                  )
-                }
-              }}
-            >
-              {installationContent}
-            </ReactMarkdown>
-          </div>
+          <MarkdownRenderer content={installationContent} />
         </div>
       </div>
-      
-      {/* Modern Lightbox with Zoom and Thumbnails */}
-      <Lightbox
-        open={lightboxOpen}
-        close={() => setLightboxOpen(false)}
-        slides={slides}
-        index={currentImageIndex}
-        plugins={[Zoom, Thumbnails]}
-        zoom={{
-          maxZoomPixelRatio: 3,
-          zoomInMultiplier: 2,
-        }}
-      />
-      
       <Footer />
     </main>
   )
