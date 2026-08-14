@@ -47,15 +47,6 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <a
-                  href="https://forum.l7neg.uk.to/"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                  target="_blank"
-                >
-                  Forum
-                </a>
-              </li>
-              <li>
-                <a
                   href="https://l7neg.uk.to/discord"
                   className="text-muted-foreground hover:text-primary transition-colors"
                   target="_blank"
