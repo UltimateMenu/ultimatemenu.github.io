@@ -2,17 +2,18 @@ import { Footer } from "@/components/footer"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { MarkdownRenderer } from "@/components/markdown-renderer"
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import rehypeRaw from 'rehype-raw'
 
 const installationContent = `# 1. Make sure **BattlEye** is disabled in the Rockstar Games Launcher settings.
 ![Screenshot 2024-09-22 174711](https://github.com/user-attachments/assets/ec1b9eb3-113f-4031-b1a7-6d38dad63c69)
 
-# 2. Input the command ``-nobattleye`` in ``commandline.txt`` located in your game directory EPIC GAMES/STEAM etc..
+# 2. Input the command \`\`-nobattleye\`\` in \`\`commandline.txt\`\` located in your game directory EPIC GAMES/STEAM etc..
 ![Screenshot 2024-09-22 174643](https://github.com/user-attachments/assets/068df41e-fdda-4cbf-baf4-eb3e638709d1)
 
 # 3. Start The Command Line Prompt as **Administrator** and simply enter **sc delete BEService** to remove BattleEye service completely.
 ![Screenshot 2024-09-22 172051](https://github.com/user-attachments/assets/a92342fc-4d71-455e-b8ce-feb8eac57a0b)
-
 
 # 4. Let the game load to the main menu. Do not load story or online mode.
 
@@ -57,7 +58,15 @@ export default function InstallationPage() {
             Follow these steps to install and configure UltimateMenu for GTA V
           </p>
 
-          <MarkdownRenderer content={installationContent} />
+          {/* Directly use ReactMarkdown instead of the problematic component */}
+          <div className="prose prose-invert max-w-none">
+            <ReactMarkdown 
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeRaw]}
+            >
+              {installationContent}
+            </ReactMarkdown>
+          </div>
         </div>
       </div>
       <Footer />
