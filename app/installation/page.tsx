@@ -5,14 +5,13 @@ import { Button } from "@/components/ui/button"
 import { MarkdownRenderer } from "@/components/markdown-renderer"
 
 const installationContent = `# 1. Make sure **BattlEye** is disabled in the Rockstar Games Launcher settings.
-![Screenshot 2024-09-22 174711](https://github.com/user-attachments/assets/ec1b9eb3-113f-4031-b1a7-6d38dad63c69)
+<img width="1084" alt="Screenshot 2024-09-22 174711" src="https://github.com/user-attachments/assets/ec1b9eb3-113f-4031-b1a7-6d38dad63c69" />
 
-# 2. Input the command ``-nobattleye`` in ``commandline.txt`` located in your game directory EPIC GAMES/STEAM etc..
-![Screenshot 2024-09-22 174643](https://github.com/user-attachments/assets/068df41e-fdda-4cbf-baf4-eb3e638709d1)
+# 2. Input the command [B]-nobattleye[/B] in 'commandline.txt' located in your game directory EPIC GAMES/STEAM etc..
+<img width="1271" alt="Screenshot 2024-09-22 174643" src="https://github.com/user-attachments/assets/068df41e-fdda-4cbf-baf4-eb3e638709d1" />
 
 # 3. Start The Command Line Prompt as **Administrator** and simply enter **sc delete BEService** to remove BattleEye service completely.
-![Screenshot 2024-09-22 172051](https://github.com/user-attachments/assets/a92342fc-4d71-455e-b8ce-feb8eac57a0b)
-
+<img width="673" alt="Screenshot 2024-09-22 172051" src="https://github.com/user-attachments/assets/a92342fc-4d71-455e-b8ce-feb8eac57a0b" />
 
 # 4. Let the game load to the main menu. Do not load story or online mode.
 
