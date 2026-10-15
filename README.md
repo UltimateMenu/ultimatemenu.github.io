@@ -1,7 +1,7 @@
 # UltimateMenu Showcase Website
 
-
+![UltimateMenu Script](/public/UltimateMenu.png)
 
 ---
 
-**© 2025 UltimateMenu** | Built with Next.js, React, and TypeScript
+**© 2026 UltimateMenu** | Built with Next.js, React, and TypeScript
