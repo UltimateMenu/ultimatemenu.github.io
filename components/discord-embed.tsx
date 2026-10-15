@@ -5,12 +5,17 @@ import { usePathname } from "next/navigation"
 const SITE = "https://ultimatemenu.github.io"
 const ACCENT = 2604387 // #27bd63
 const LOGO = `${SITE}/UltimateMenu.png`
-const SHOWCASE_IMG = "https://ultimatemenu.github.io/ScreenShots/YimMenu/15.png"
+
+// Custom emojis (Application emojis uploaded by l7neg)
+// telegram: 1551093032739278939
+// github:   1551092539166040225
+// earth:    1551083938766782596
+// discord:  1551083599846056016
 
 const PAGES: Record<string, { title: string; desc: string }> = {
   "/": {
-    title: "UltimateMenu — 206 Options, Zero Compromises",
-    desc: "The most advanced free Lua script for GTA V. Recovery, Money, Heist Editor + 206 options for YimMenu & Nenyoo. Free download.",
+    title: "UltimateMenu",
+    desc: "The most advanced free Lua script for GTA V. Recovery, Money, Heist Editor + 206 options for YimMenu & Nenyoo.",
   },
   "/features": {
     title: "Every Feature — UltimateMenu",
@@ -39,10 +44,11 @@ const PAGES: Record<string, { title: string; desc: string }> = {
 }
 
 /**
- * Discord Components V2 rich embed on every page (container + section +
- * gallery + link buttons), with per-route title, description and URL.
- * Component types: 17 Container, 9 Section, 10 Text, 11 Thumbnail,
- * 12 Gallery, 14 Separator, 1 Action Row, 2 + style 5 Link Button.
+ * Discord Components V2 rich embed on every page (container + text +
+ * single-image gallery + link buttons), with per-route title, description and URL.
+ * Component types: 17 Container, 10 Text,
+ * 12 Gallery (single website image only), 14 Separator,
+ * 1 Action Row, 2 + style 5 Link Button.
  */
 export function DiscordEmbed() {
   const pathname = usePathname() || "/"
@@ -55,21 +61,12 @@ export function DiscordEmbed() {
       accent_color: ACCENT,
       components: [
         {
-          type: 9,
-          components: [
-            {
-              type: 10,
-              content: `# **[${page.title}](${pageUrl})**\n${page.desc}`,
-            },
-          ],
-          accessory: {
-            type: 11,
-            media: { url: LOGO },
-          },
+          type: 10,
+          content: `# **[${page.title}](${pageUrl})**\n${page.desc}`,
         },
         {
           type: 12,
-          items: [{ media: { url: LOGO } }, { media: { url: SHOWCASE_IMG } }],
+          items: [{ media: { url: LOGO } }],
         },
         { type: 14, spacing: 1 },
         {
@@ -80,21 +77,21 @@ export function DiscordEmbed() {
               style: 5,
               label: "download",
               url: "https://github.com/UltimateMenu/UltimateMenu/releases/latest",
-              emoji: { name: "📥" },
+              emoji: { id: "1551092539166040225", name: "github", animated: false },
             },
             {
               type: 2,
               style: 5,
               label: "discord",
               url: "https://l7neg.uk.to/discord",
-              emoji: { name: "💬" },
+              emoji: { id: "1551083599846056016", name: "discord", animated: false },
             },
             {
               type: 2,
               style: 5,
               label: "changelog",
               url: `${SITE}/changelog`,
-              emoji: { name: "📜" },
+              emoji: { id: "1551083938766782596", name: "earth", animated: false },
             },
           ],
         },

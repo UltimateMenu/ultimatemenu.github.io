@@ -38,9 +38,9 @@ export const metadata: Metadata = {
     canonical: "https://ultimatemenu.github.io/",
   },
   openGraph: {
-    title: "UltimateMenu — 206 Options, Zero Compromises",
+    title: "UltimateMenu",
     description:
-      "The most advanced YimMenu Lua script for GTA V. Recovery, Money, Heist Editor, and more. Free download.",
+      "The most advanced Lua script for GTA V. Recovery, Money, Heist Editor, and more.",
     url: "https://ultimatemenu.github.io",
     siteName: "UltimateMenu",
     images: [
