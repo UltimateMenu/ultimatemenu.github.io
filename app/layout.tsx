@@ -19,7 +19,7 @@ const fontMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ultimatemenu.github.io"),
-  title: "UltimateMenu v3.0 — Unlock the Full Potential of GTA V (206 Options, Free)",
+  title: "UltimateMenu — Unlock the Full Potential of GTA V (206 Options, Free)",
   description:
     "UltimateMenu is the most advanced free Lua script for GTA V. Recovery, Money, Heist Editor, Level Editor + 206 options across YimMenu and Nenyoo. Fast, stable, updated. Download v3.0 free.",
   keywords: ["GTA V", "mod menu", "YimMenu", "Nenyoo", "UltimateMenu", "GTA 5 mods", "Heist Editor", "Recovery"],
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     canonical: "https://ultimatemenu.github.io/",
   },
   openGraph: {
-    title: "UltimateMenu v3.0 — 206 Options, Zero Compromises",
+    title: "UltimateMenu — 206 Options, Zero Compromises",
     description:
       "The most advanced YimMenu Lua script for GTA V. Recovery, Money, Heist Editor, and more. Free download.",
     url: "https://ultimatemenu.github.io",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "UltimateMenu v3.0 — Unlock the Full Potential of GTA V",
+    title: "UltimateMenu — Unlock the Full Potential of GTA V",
     description: "206 options. Free. Built for YimMenu, Nenyoo & more.",
     images: ["https://ultimatemenu.github.io/UltimateMenu.png"],
   },

@@ -9,7 +9,7 @@ const SHOWCASE_IMG = "https://ultimatemenu.github.io/ScreenShots/YimMenu/15.png"
 
 const PAGES: Record<string, { title: string; desc: string }> = {
   "/": {
-    title: "UltimateMenu v3.0 — 206 Options, Zero Compromises",
+    title: "UltimateMenu — 206 Options, Zero Compromises",
     desc: "The most advanced free Lua script for GTA V. Recovery, Money, Heist Editor + 206 options for YimMenu & Nenyoo. Free download.",
   },
   "/features": {
