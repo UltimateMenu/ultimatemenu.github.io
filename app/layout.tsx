@@ -6,7 +6,6 @@ import { Header } from "@/components/header"
 import { RouteTransition } from "@/components/route-transition"
 import { DiscordEmbed } from "@/components/discord-embed"
 import { Toaster } from "@/components/ui/sonner"
-import { Analytics } from "@vercel/analytics/next"
 import { DisableRightClick } from "@/components/disable-right-click"
 import { HideLinkPreviews } from "@/components/hide-link-previews"
 import { ConsoleMessage } from "@/components/console-message"
@@ -132,7 +131,6 @@ export default function RootLayout({
           <Toaster theme="dark" position="bottom-center" />
           <DiscordEmbed />
         </ThemeProvider>
-        <Analytics />
         <ConsoleMessage />
         <DisableRightClick />
         <HideLinkPreviews />
