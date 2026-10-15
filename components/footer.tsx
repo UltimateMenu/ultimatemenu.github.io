@@ -59,6 +59,7 @@ export function Footer() {
               </li>
             </ul>
           </nav>
+        </div>
 
         <div className="um-footer-bottom">
           <p>© 2026 UltimateMenu.</p>
