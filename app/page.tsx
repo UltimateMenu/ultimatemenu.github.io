@@ -1,20 +1,24 @@
 import { Hero } from "@/components/hero"
 import { Features } from "@/components/features"
-import { Screenshots } from "@/components/screenshots"
 import { VideoShowcase } from "@/components/video-showcase"
 import { Stats } from "@/components/stats"
-import { ScreenshotCarousel } from "@/components/screenshot-carousel"
+import { CtaBand } from "@/components/cta-band"
+import { Divider } from "@/components/divider"
+import { Reveal } from "@/components/reveal"
 import { Footer } from "@/components/footer"
 
 export default function Page() {
   return (
-    <main className="min-h-screen bg-background">
+    <main id="main-content" className="min-h-screen">
+      <Reveal />
       <Hero />
+      <Divider />
       <Stats />
+      <Divider />
       <Features />
       <VideoShowcase />
-      <ScreenshotCarousel />
-      <Screenshots />
+      <Divider />
+      <CtaBand />
       <Footer />
     </main>
   )

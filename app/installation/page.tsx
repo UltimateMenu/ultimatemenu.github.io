@@ -1,8 +1,13 @@
-import { Footer } from "@/components/footer"
-import { ArrowLeft } from "lucide-react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import type { Metadata } from "next"
+import { PageShell } from "@/components/page-shell"
 import { MarkdownRenderer } from "@/components/markdown-renderer"
+import { Wrench } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Installation Guide — UltimateMenu v3.0",
+  description: "Follow these steps to install and configure UltimateMenu for GTA V.",
+  alternates: { canonical: "https://ultimatemenu.github.io/installation" },
+}
 
 const installationContent = `# 1. Make sure **BattlEye** is disabled in the Rockstar Games Launcher settings.
 <img width="1084" alt="Screenshot 2024-09-22 174711" src="https://github.com/user-attachments/assets/ec1b9eb3-113f-4031-b1a7-6d38dad63c69" />
@@ -39,27 +44,19 @@ const installationContent = `# 1. Make sure **BattlEye** is disabled in the Rock
 
 export default function InstallationPage() {
   return (
-    <main className="min-h-screen bg-background pt-24">
-      <div className="container px-4 py-12">
-        <Button variant="ghost" className="mb-8 gap-2" asChild>
-          <Link href="/">
-            <ArrowLeft className="h-4 w-4" />
-            Back to Home
-          </Link>
-        </Button>
-
-        <div className="mx-auto max-w-4xl">
-          <h1 className="mb-4 text-balance font-mono text-5xl font-bold animate-text-sweep">
-            Installation <span className="text-primary">Guide</span>
-          </h1>
-          <p className="mb-12 text-balance text-xl text-muted-foreground leading-relaxed">
-            Follow these steps to install and configure UltimateMenu for GTA V
-          </p>
-
-          <MarkdownRenderer content={installationContent} />
-        </div>
+    <PageShell
+      headingId="installation-heading"
+      icon={<Wrench aria-hidden="true" />}
+      title={
+        <>
+          Installation <span className="um-title-highlight">Guide</span>
+        </>
+      }
+      sub="Follow these steps to install and configure UltimateMenu for GTA V."
+    >
+      <div className="um-card visible">
+        <MarkdownRenderer content={installationContent} />
       </div>
-      <Footer />
-    </main>
+    </PageShell>
   )
 }

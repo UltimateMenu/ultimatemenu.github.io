@@ -1,10 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { GitCommit, Calendar, User, ChevronDown, ChevronUp } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Switch } from "@/components/ui/switch"
+import { toast } from "sonner"
+import { GitCommit, Calendar, User, ArrowUp, ArrowDown } from "lucide-react"
 import { MarkdownRenderer } from "@/components/markdown-renderer"
 
 interface Release {
@@ -28,20 +27,55 @@ interface ChangelogListProps {
 
 export function ChangelogList({ releases }: ChangelogListProps) {
     const [showAll, setShowAll] = useState(false)
+    const [showTop, setShowTop] = useState(false)
+    const [showBottom, setShowBottom] = useState(true)
+    const topRef = useRef<HTMLDivElement>(null)
 
-    // Show first 1 release by default
     const displayedReleases = showAll ? releases : releases.slice(0, 1)
     const hasMore = releases.length > 1
 
+    useEffect(() => {
+        const onScroll = () => {
+            setShowTop(window.scrollY > 600)
+            const nearBottom =
+                window.innerHeight + window.scrollY >= document.body.scrollHeight - 300
+            setShowBottom(!nearBottom)
+        }
+        onScroll()
+        window.addEventListener("scroll", onScroll, { passive: true })
+        window.addEventListener("resize", onScroll)
+        return () => {
+            window.removeEventListener("scroll", onScroll)
+            window.removeEventListener("resize", onScroll)
+        }
+    }, [])
+
+    const toggle = () => {
+        const next = !showAll
+        setShowAll(next)
+        if (next) {
+            toast.success("Older changes loaded", {
+                description: "Use the down arrow to jump to the end of the list.",
+            })
+        } else {
+            toast("Old versions hidden", {
+                description: "Showing the latest release only.",
+            })
+            setTimeout(() => {
+                topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+            }, 150)
+        }
+    }
+
     return (
-        <div className="space-y-8">
+        <div ref={topRef} style={{ scrollMarginTop: 90 }}>
             {releases.length === 0 ? (
-                <div className="rounded-lg border border-border bg-card p-12 text-center">
-                    <p className="text-muted-foreground">
+                <div className="um-card visible" style={{ textAlign: "center", padding: 48 }}>
+                    <p style={{ color: "var(--text-mid)" }}>
                         No releases found. Check back later or visit our{" "}
                         <a
                             href="https://github.com/UltimateMenu/UltimateMenu/releases"
-                            className="text-primary hover:underline"
+                            style={{ color: "var(--accent-soft)" }}
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -52,93 +86,136 @@ export function ChangelogList({ releases }: ChangelogListProps) {
                 </div>
             ) : (
                 <>
-                    <div className="flex justify-end mb-4">
+                    <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 16 }}>
                         {hasMore && (
-                            <div className="flex items-center space-x-2">
-                                <Switch
-                                    id="show-old-versions"
-                                    checked={showAll}
-                                    onCheckedChange={setShowAll}
-                                />
-                                <label
-                                    htmlFor="show-old-versions"
-                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
-                                >
-                                    Show Old Versions
-                                </label>
-                            </div>
+                            <button
+                                type="button"
+                                className="um-btn-glass"
+                                aria-pressed={showAll}
+                                onClick={toggle}
+                            >
+                                {showAll ? "Hide Old Versions" : "Show Old Versions"}
+                            </button>
                         )}
                     </div>
 
-                    <AnimatePresence>
-                        {displayedReleases.map((release, index) => (
-                            <motion.div
-                                key={release.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, height: 0 }}
-                                transition={{ duration: 0.3, delay: index * 0.1 }}
-                                className="group rounded-lg border border-border bg-card p-6 transition-all hover:border-primary/50"
-                            >
-                                <div className="mb-4 flex flex-wrap items-center justify-between gap-4">
-                                    <div className="flex items-center gap-3">
-                                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                                            <GitCommit className="h-5 w-5" />
-                                        </div>
-                                        <div>
-                                            <h2 className="text-2xl font-bold">{release.name || release.tag_name}</h2>
-                                            <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                                                <span className="flex items-center gap-1">
-                                                    <Calendar className="h-3 w-3" />
-                                                    {new Date(release.published_at).toLocaleDateString("en-US", {
-                                                        year: "numeric",
-                                                        month: "long",
-                                                        day: "numeric",
-                                                    })}
-                                                </span>
-                                                {release.author && (
-                                                    <span className="flex items-center gap-1">
-                                                        <User className="h-3 w-3" />
-                                                        {release.author.login}
+                    <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+                        <AnimatePresence>
+                            {displayedReleases.map((release, index) => (
+                                <motion.article
+                                    key={release.id}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                                    className="um-card visible"
+                                >
+                                    <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 16, marginBottom: 16 }}>
+                                        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                                            <div className="um-card-icon" style={{ marginBottom: 0 }}>
+                                                <GitCommit size={20} aria-hidden="true" />
+                                            </div>
+                                            <div>
+                                                <h2 className="um-card-title" style={{ fontSize: 20 }}>{release.name || release.tag_name}</h2>
+                                                <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 13, color: "var(--text)" }}>
+                                                    <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
+                                                        <Calendar size={12} aria-hidden="true" />
+                                                        {new Date(release.published_at).toLocaleDateString("en-US", {
+                                                            year: "numeric",
+                                                            month: "long",
+                                                            day: "numeric",
+                                                        })}
                                                     </span>
-                                                )}
+                                                    {release.author && (
+                                                        <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
+                                                            <User size={12} aria-hidden="true" />
+                                                            {release.author.login}
+                                                        </span>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
+                                        {index === 0 && (
+                                            <span
+                                                style={{
+                                                    borderRadius: 100, padding: "5px 12px",
+                                                    fontSize: 12, fontWeight: 600,
+                                                    color: "#3ddc74", border: "1px solid rgba(61,220,116,.4)",
+                                                    background: "rgba(61,220,116,.08)",
+                                                }}
+                                            >
+                                                Latest
+                                            </span>
+                                        )}
                                     </div>
-                                    {index === 0 && (
-                                        <span className="rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary">
-                                            Latest
-                                        </span>
-                                    )}
-                                </div>
 
-                                <div className="max-w-none">
-                                    {release.body ? (
-                                        <MarkdownRenderer content={release.body} />
-                                    ) : (
-                                        <p className="text-muted-foreground">No release notes available.</p>
-                                    )}
-                                </div>
+                                    <div>
+                                        {release.body ? (
+                                            <MarkdownRenderer content={release.body} />
+                                        ) : (
+                                            <p style={{ color: "var(--text)" }}>No release notes available.</p>
+                                        )}
+                                    </div>
 
-                                <div className="mt-6 flex flex-wrap gap-3">
-                                    <Button asChild variant="outline" size="sm">
-                                        <a href={release.html_url} target="_blank" rel="noopener noreferrer">
+                                    <div style={{ marginTop: 24, display: "flex", flexWrap: "wrap", gap: 10 }}>
+                                        <a href={release.html_url} target="_blank" rel="noopener noreferrer" className="um-btn-glass">
                                             View on GitHub
                                         </a>
-                                    </Button>
-                                    {release.assets && release.assets.length > 0 && (
-                                        <Button asChild size="sm" className="gap-2">
-                                            <a href={release.assets[0].browser_download_url} download>
+                                        {release.assets && release.assets.length > 0 && (
+                                            <a href={release.assets[0].browser_download_url} download className="um-btn-primary">
                                                 Download {release.tag_name}
                                             </a>
-                                        </Button>
-                                    )}
-                                </div>
-                            </motion.div>
-                        ))}
-                    </AnimatePresence>
+                                        )}
+                                    </div>
+                                </motion.article>
+                            ))}
+                        </AnimatePresence>
+                    </div>
 
-
+                    {/* Floating scroll arrows. */}
+                    {(showTop || showBottom) && (
+                        <div
+                            style={{
+                                position: "fixed", right: 20, bottom: 20, zIndex: 90,
+                                display: "flex", flexDirection: "column", gap: 10,
+                            }}
+                        >
+                            {showBottom && (
+                                <button
+                                    type="button"
+                                    onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })}
+                                    aria-label="Scroll to bottom"
+                                    style={{
+                                        display: "inline-flex", alignItems: "center", justifyContent: "center",
+                                        width: 48, height: 48, borderRadius: "50%", cursor: "pointer",
+                                        color: "#fff", background: "rgba(20,40,28,.85)",
+                                        border: "1px solid rgba(61,220,116,.45)",
+                                        boxShadow: "0 8px 24px rgba(0,0,0,.5)",
+                                        backdropFilter: "blur(8px)",
+                                    }}
+                                >
+                                    <ArrowDown size={20} aria-hidden="true" />
+                                </button>
+                            )}
+                            {showTop && (
+                                <button
+                                    type="button"
+                                    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                                    aria-label="Scroll back to top"
+                                    style={{
+                                        display: "inline-flex", alignItems: "center", justifyContent: "center",
+                                        width: 48, height: 48, borderRadius: "50%", cursor: "pointer",
+                                        color: "#fff", background: "rgba(20,40,28,.85)",
+                                        border: "1px solid rgba(61,220,116,.45)",
+                                        boxShadow: "0 8px 24px rgba(0,0,0,.5)",
+                                        backdropFilter: "blur(8px)",
+                                    }}
+                                >
+                                    <ArrowUp size={20} aria-hidden="true" />
+                                </button>
+                            )}
+                        </div>
+                    )}
                 </>
             )}
         </div>

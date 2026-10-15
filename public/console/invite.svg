@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="366" height="13" viewBox="0 0 366 13">
+  <defs>
+    <linearGradient id="gray" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="365.6" y2="0">
+      <stop offset="0" stop-color="#8c8c8c"/>
+      <stop offset="1" stop-color="#dcdcdc"/>
+    </linearGradient>
+    <linearGradient id="link" gradientUnits="userSpaceOnUse" x1="167.2" y1="0" x2="365.6" y2="0" spreadMethod="repeat">
+      <stop offset="0" stop-color="#27bd63"/>
+      <stop offset="0.25" stop-color="#c9f7d6"/>
+      <stop offset="0.5" stop-color="#ffffff"/>
+      <stop offset="0.75" stop-color="#c9f7d6"/>
+      <stop offset="1" stop-color="#27bd63"/>
+      <animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="198.4 0" dur="3s" repeatCount="indefinite" calcMode="linear"/>
+    </linearGradient>
+  </defs>
+  <text x="0" y="10" font-family="Consolas, monaco, monospace" font-weight="bold" font-size="13" textLength="365.6" lengthAdjust="spacingAndGlyphs"><tspan fill="url(#gray)">got ideas? join us at </tspan><tspan fill="url(#link)">https://l7neg.uk.to/discord</tspan></text>
+</svg>
