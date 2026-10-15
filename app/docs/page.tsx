@@ -1,4 +1,6 @@
+import { PageShell } from "@/components/page-shell"
 import { MarkdownRenderer } from "@/components/markdown-renderer"
+import { BookOpen } from "lucide-react"
 
 const sampleMarkdown = `# Documentation
 
@@ -46,10 +48,19 @@ Visit our [GitHub Repository](https://github.com/ultimatemenu/ultimatemenu) for 
 
 export default function DocsPage() {
     return (
-        <main className="min-h-screen bg-background py-24">
-            <div className="container px-4 mx-auto max-w-4xl">
+        <PageShell
+            headingId="docs-heading"
+            icon={<BookOpen aria-hidden="true" />}
+            title={
+                <>
+                    <span className="um-title-highlight">Docs</span>
+                </>
+            }
+            sub="Developer notes and reference for UltimateMenu."
+        >
+            <div className="um-card visible">
                 <MarkdownRenderer content={sampleMarkdown} />
             </div>
-        </main>
+        </PageShell>
     )
 }

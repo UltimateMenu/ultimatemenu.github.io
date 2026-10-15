@@ -1,138 +1,108 @@
 "use client"
 
-import { useState } from "react"
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { X, ChevronLeft, ChevronRight } from "lucide-react"
-import { motion } from "framer-motion"
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
-import { Maximize2 } from "lucide-react"
+import { useCallback, useEffect, useState } from "react"
+import { SectionHead } from "@/components/section-head"
+import { Lightbox } from "@/components/lightbox"
+import { isActiveSlider, setActiveSlider } from "@/lib/active-slider"
+import { LayoutGrid, ChevronLeft, ChevronRight } from "lucide-react"
 
 const screenshots = [
-  {
-    url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/7.png",
-  },
-  {
-    url: "https://ultimatemenu.github.io/ScreenShots/ModestMenu/8.png",
-  },
-  {
-    url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/9.png",
-  },
-  {
-    url: "https://ultimatemenu.github.io/ScreenShots/ModestMenu/11.png",
-  },
-  {
-    url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/12.png",
-  },
-  {
-    url: "https://ultimatemenu.github.io/ScreenShots/ModestMenu/13.png",
-  },
+  { url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/7.png", alt: "UltimateMenu gallery — YimMenu build screenshot 7 (older version)" },
+  { url: "https://ultimatemenu.github.io/ScreenShots/ModestMenu/8.png", alt: "UltimateMenu gallery — ModestMenu build screenshot 8 (older version)" },
+  { url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/9.png", alt: "UltimateMenu gallery — YimMenu build screenshot 9 (older version)" },
+  { url: "https://ultimatemenu.github.io/ScreenShots/ModestMenu/11.png", alt: "UltimateMenu gallery — ModestMenu build screenshot 11 (older version)" },
+  { url: "https://ultimatemenu.github.io/ScreenShots/YimMenu/12.png", alt: "UltimateMenu gallery — YimMenu build screenshot 12 (older version)" },
+  { url: "https://ultimatemenu.github.io/ScreenShots/ModestMenu/13.png", alt: "UltimateMenu gallery — ModestMenu build screenshot 13 (older version)" },
 ]
 
 export function Screenshots() {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null)
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [index, setIndex] = useState(0)
+  const [lightbox, setLightbox] = useState(false)
 
-  const handleImageClick = (url: string) => {
-    const index = screenshots.findIndex(s => s.url === url)
-    setCurrentIndex(index)
-    setSelectedImage(url)
-  }
+  const go = useCallback(
+    (dir: 1 | -1) => setIndex((i) => (i + dir + screenshots.length) % screenshots.length),
+    []
+  )
 
-  const navigate = (direction: "prev" | "next") => {
-    if (direction === "prev") {
-      const newIndex = currentIndex === 0 ? screenshots.length - 1 : currentIndex - 1
-      setCurrentIndex(newIndex)
-      setSelectedImage(screenshots[newIndex].url)
-    } else {
-      const newIndex = currentIndex === screenshots.length - 1 ? 0 : currentIndex + 1
-      setCurrentIndex(newIndex)
-      setSelectedImage(screenshots[newIndex].url)
+  useEffect(() => {
+    if (lightbox) return
+    const onKey = (e: KeyboardEvent) => {
+      if (!isActiveSlider("gallery")) return
+      if (e.key === "ArrowRight") go(1)
+      if (e.key === "ArrowLeft") go(-1)
     }
-  }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [go, lightbox])
+
+  const cur = screenshots[index]
 
   return (
-    <section className="min-h-screen flex items-center py-24">
-      <div className="container px-4 mx-auto max-w-7xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="mx-auto max-w-2xl text-center mb-12"
+    <section
+      id="gallery"
+      aria-labelledby="gallery-heading"
+      className="um-section"
+      onMouseEnter={() => setActiveSlider("gallery")}
+      onFocusCapture={() => setActiveSlider("gallery")}
+      onPointerDownCapture={() => setActiveSlider("gallery")}
+    >
+      <SectionHead
+        id="gallery-heading"
+        icon={<LayoutGrid aria-hidden="true" />}
+        title={
+          <>
+            Gallery <span className="um-title-highlight">(old versions screenshots)</span>
+          </>
+        }
+        sub="A closer look at How Ultimate Menu works."
+      />
+
+      <div className="um-slider um-reveal">
+        <button type="button" className="um-slider-side" onClick={() => go(-1)} aria-label="Previous picture">
+          <ChevronLeft size={20} aria-hidden="true" />
+        </button>
+
+        <button
+          type="button"
+          className="um-frame um-slider-frame"
+          style={{ padding: 0, background: "#000" }}
+          onClick={() => setLightbox(true)}
+          aria-label={`Open viewer: ${cur.alt}`}
         >
-          <h2 className="mb-4 text-balance font-mono text-4xl font-bold md:text-5xl animate-text-sweep">
-            Gallery (Old Versions ScreenShots)
-          </h2>
-          <p className="text-lg text-muted-foreground">
-            A closer look at How Ultimate Menu works.
-          </p>
-        </motion.div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            key={cur.url}
+            src={cur.url}
+            alt={cur.alt}
+            loading="lazy"
+            decoding="async"
+            draggable={false}
+            style={{ display: "block", width: "100%", aspectRatio: "16/9", objectFit: "cover" }}
+          />
+          <span
+            aria-hidden="true"
+            style={{
+              position: "absolute", top: 14, left: 14,
+              fontFamily: "Poppins, sans-serif", fontSize: 12, fontWeight: 600,
+              color: "#fff", background: "rgba(0,0,0,.6)", border: "1px solid rgba(255,255,255,.14)",
+              padding: "5px 12px", borderRadius: 100,
+            }}
+          >
+            {index + 1} / {screenshots.length}
+          </span>
+        </button>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {screenshots.map((screenshot, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              viewport={{ once: true }}
-              className="group relative aspect-video cursor-pointer overflow-hidden rounded-xl border border-border bg-muted"
-              onClick={() => handleImageClick(screenshot.url)}
-            >
-              <img
-                src={screenshot.url}
-                alt={screenshot.title}
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/20" />
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
-                <div className="rounded-full bg-background/90 p-3 text-primary shadow-lg backdrop-blur-sm">
-                  <Maximize2 className="h-6 w-6" />
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        <button type="button" className="um-slider-side" onClick={() => go(1)} aria-label="Next picture">
+          <ChevronRight size={20} aria-hidden="true" />
+        </button>
       </div>
+      <span className="sr-only" role="status">
+        Picture {index + 1} of {screenshots.length}: {cur.alt}
+      </span>
 
-      <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
-        <DialogContent showCloseButton={false} className="max-w-[95vw] max-h-[95vh] w-auto h-auto border-border bg-background/95 p-0 backdrop-blur-xl flex items-center justify-center">
-          <DialogTitle className="sr-only">Image Preview</DialogTitle>
-          {selectedImage && (
-            <div className="relative flex items-center justify-center">
-              <img
-                src={selectedImage}
-                alt="Gallery preview"
-                className="max-w-[90vw] max-h-[90vh] w-auto h-auto object-contain rounded-lg"
-              />
-
-              <Button
-                size="icon"
-                variant="ghost"
-                className="absolute left-4 top-1/2 h-10 w-10 -translate-y-1/2 rounded-full bg-black/50 text-white hover:bg-black/70"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  navigate("prev")
-                }}
-              >
-                <ChevronLeft className="h-6 w-6" />
-              </Button>
-              <Button
-                size="icon"
-                variant="ghost"
-                className="absolute right-4 top-1/2 h-10 w-10 -translate-y-1/2 rounded-full bg-black/50 text-white hover:bg-black/70"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  navigate("next")
-                }}
-              >
-                <ChevronRight className="h-6 w-6" />
-              </Button>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
+      {lightbox && (
+        <Lightbox images={screenshots} index={index} onIndex={setIndex} onClose={() => setLightbox(false)} />
+      )}
     </section>
   )
 }

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="290" height="13" viewBox="0 0 290 13">
+  <defs>
+    <linearGradient id="brand" gradientUnits="userSpaceOnUse" x1="60.8" y1="0" x2="190" y2="0" spreadMethod="repeat">
+      <stop offset="0" stop-color="#27bd63"/>
+      <stop offset="0.25" stop-color="#c9f7d6"/>
+      <stop offset="0.5" stop-color="#ffffff"/>
+      <stop offset="0.75" stop-color="#c9f7d6"/>
+      <stop offset="1" stop-color="#27bd63"/>
+      <animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="129.2 0" dur="3s" repeatCount="indefinite" calcMode="linear"/>
+    </linearGradient>
+    <linearGradient id="love" gradientUnits="userSpaceOnUse" x1="235.6" y1="0" x2="289.6" y2="0" spreadMethod="repeat">
+      <stop offset="0" stop-color="#ff232d"/>
+      <stop offset="0.25" stop-color="#ff969b"/>
+      <stop offset="0.5" stop-color="#fff5f6"/>
+      <stop offset="0.75" stop-color="#ff969b"/>
+      <stop offset="1" stop-color="#ff232d"/>
+      <animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="54 0" dur="2.5s" repeatCount="indefinite" calcMode="linear"/>
+    </linearGradient>
+  </defs>
+  <text x="0" y="10" font-family="Consolas, monaco, monospace" font-weight="bold" font-size="13" textLength="289.6" lengthAdjust="spacingAndGlyphs"><tspan fill="#8a8a8a">made by </tspan><tspan fill="url(#brand)">UltimateMenu team</tspan><tspan fill="#8a8a8a"> with </tspan><tspan fill="url(#love)">love &lt;3</tspan></text>
+</svg>

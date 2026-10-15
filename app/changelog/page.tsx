@@ -1,8 +1,13 @@
-import { Footer } from "@/components/footer"
-import { ArrowLeft } from "lucide-react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import type { Metadata } from "next"
+import { PageShell } from "@/components/page-shell"
 import { ChangelogList } from "@/components/changelog-list"
+import { ScrollText } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Changelog — UltimateMenu v3.0",
+  description: "Track all updates, improvements, and bug fixes for UltimateMenu.",
+  alternates: { canonical: "https://ultimatemenu.github.io/changelog" },
+}
 
 async function getChangelog() {
   try {
@@ -21,27 +26,17 @@ export default async function ChangelogPage() {
   const releases = await getChangelog()
 
   return (
-    <main className="min-h-screen bg-background pt-24">
-      <div className="container px-4 py-12">
-        <Button variant="ghost" className="mb-8 gap-2" asChild>
-          <Link href="/">
-            <ArrowLeft className="h-4 w-4" />
-            Back to Home
-          </Link>
-        </Button>
-
-        <div className="mx-auto max-w-4xl">
-          <h1 className="mb-4 text-balance font-mono text-5xl font-bold animate-text-sweep">
-            Changelog
-          </h1>
-          <p className="mb-12 text-balance text-xl text-muted-foreground leading-relaxed">
-            Track all updates, improvements, and bug fixes for UltimateMenu
-          </p>
-
-          <ChangelogList releases={releases} />
-        </div>
-      </div>
-      <Footer />
-    </main>
+    <PageShell
+      headingId="changelog-heading"
+      icon={<ScrollText aria-hidden="true" />}
+      title={
+        <>
+          <span className="um-title-highlight">Changelog</span>
+        </>
+      }
+      sub="Track all updates, improvements, and bug fixes for UltimateMenu."
+    >
+      <ChangelogList releases={releases} />
+    </PageShell>
   )
 }

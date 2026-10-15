@@ -1,186 +1,84 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
-import { Star, GitFork, Globe } from "lucide-react"
-import { motion } from "framer-motion"
-
-function AnimatedCounter({ end, duration = 5000, suffix = "" }: { end: number; duration?: number; suffix?: string }) {
-  const [count, setCount] = useState(0)
-  const [isVisible, setIsVisible] = useState(false)
-  const ref = useRef<HTMLSpanElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 },
-    )
-
-    if (ref.current) {
-      observer.observe(ref.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
-  useEffect(() => {
-    if (!isVisible) return
-
-    let startTime: number | null = null
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp
-      const progress = timestamp - startTime
-
-      // easeOutExpo easing function
-      const easeOutExpo = (x: number): number => {
-        return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
-      }
-
-      if (progress < duration) {
-        const percentage = progress / duration
-        const easedProgress = easeOutExpo(percentage)
-        setCount(Math.floor(end * easedProgress))
-        requestAnimationFrame(animate)
-      } else {
-        setCount(end)
-      }
-    }
-    requestAnimationFrame(animate)
-  }, [isVisible, end, duration])
-
-  return <span ref={ref} className="font-mono text-4xl font-bold text-primary">{count.toLocaleString()}{suffix}</span>
-}
-
-async function fetchGitHubStats() {
-  try {
-    const response = await fetch("https://api.github.com/repos/UltimateMenu/UltimateMenu")
-    if (!response.ok) return null
-    return await response.json()
-  } catch (error) {
-    console.error("Failed to fetch GitHub stats:", error)
-    return null
-  }
-}
+import { useEffect, useState } from "react"
+import { SectionHead } from "@/components/section-head"
+import { AnimatedNumber } from "@/components/animated-number"
+import { Star, GitFork, Globe, Users } from "lucide-react"
 
 export function Stats() {
-  const [stats, setStats] = useState({
-    stars: 0,
-    forks: 0,
-  })
-  const [totalViews, setTotalViews] = useState(0)
+  const [stars, setStars] = useState(0)
+  const [forks, setForks] = useState(0)
+  const [views, setViews] = useState(0)
 
   useEffect(() => {
-    // Fetch GitHub stats
-    fetchGitHubStats().then((data) => {
-      if (data) {
-        setStats(prev => ({
-          ...prev,
-          stars: data.stargazers_count || 0,
-          forks: data.forks_count || 0,
-        }))
-      }
-    })
-
-    // Fetch visitor count
-    fetch("https://ghvc.vercel.app/api?username=ultimatemenu&format=json")
-      .then(res => res.json())
-      .then(data => {
-        setTotalViews(data.value)
+    fetch("https://api.github.com/repos/UltimateMenu/UltimateMenu")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (d) {
+          setStars(d.stargazers_count || 0)
+          setForks(d.forks_count || 0)
+        }
       })
-      .catch(err => console.error("Counter fetch failed", err))
+      .catch(() => {})
+    fetch("https://ghvc.vercel.app/api?username=ultimatemenu&format=json")
+      .then((r) => r.json())
+      .then((d) => typeof d.value === "number" && setViews(d.value))
+      .catch(() => {})
   }, [])
 
   return (
-    <section className="min-h-screen flex items-center py-12 md:py-24 snap-start bg-background">
-      <div className="container px-4 mx-auto max-w-7xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="mx-auto max-w-2xl text-center mb-16"
-        >
-          <h2 className="mb-4 text-balance text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight animate-text-sweep">
-            Trusted by the Community
-          </h2>
-          <p className="text-muted-foreground text-lg">
-            Join thousands of satisfied users who trust UltimateMenu for their gaming experience.
-          </p>
-        </motion.div>
+    <section id="stats" aria-labelledby="trust-heading" className="um-section" style={{ paddingTop: 32 }}>
+      <SectionHead
+        id="trust-heading"
+        icon={<Users aria-hidden="true" />}
+        title={
+          <>
+            Trusted by the <span className="um-title-highlight">Community</span>
+          </>
+        }
+        sub="Join thousands of satisfied users who trust UltimateMenu for their gaming experience."
+      />
 
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="group relative overflow-hidden rounded-lg border border-border bg-card p-8 text-center transition-all hover:border-primary/50 hover:scale-105"
+      <div className="um-grid">
+        <article className="um-card" style={{ textAlign: "center" }}>
+          <a
+            href="https://github.com/UltimateMenu/UltimateMenu/stargazers"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: "none", display: "block" }}
+            aria-label="View UltimateMenu stargazers on GitHub"
           >
-            <a
-              href="https://github.com/UltimateMenu/UltimateMenu/stargazers"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-              <div className="relative">
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                  <Star className="h-6 w-6 text-primary" />
-                </div>
-                <AnimatedCounter end={stats.stars} />
-                <div className="mt-2 text-sm text-muted-foreground">GitHub Stars</div>
-              </div>
-            </a>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="group relative overflow-hidden rounded-lg border border-border bg-card p-8 text-center transition-all hover:border-primary/50 hover:scale-105"
-          >
-            <a
-              href="https://github.com/UltimateMenu/UltimateMenu/forks"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-              <div className="relative">
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                  <GitFork className="h-6 w-6 text-primary" />
-                </div>
-                <AnimatedCounter end={stats.forks} />
-                <div className="mt-2 text-sm text-muted-foreground">GitHub Forks</div>
-              </div>
-            </a>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            viewport={{ once: true }}
-            className="group relative overflow-hidden rounded-lg border border-border bg-card p-8 text-center transition-all hover:border-primary/50 hover:scale-105"
-          >
-            <div
-              className="block cursor-default"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-              <div className="relative">
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                  <Globe className="h-6 w-6 text-primary" />
-                </div>
-                <AnimatedCounter end={totalViews} />
-                <div className="mt-2 text-sm text-muted-foreground">Page Views</div>
-              </div>
+            <div className="um-card-icon" style={{ margin: "0 auto 14px" }}>
+              <Star aria-hidden="true" />
             </div>
-          </motion.div>
-        </div>
+            <AnimatedNumber end={stars} className="um-stat-num" />
+            <p style={{ fontSize: 13, marginTop: 4 }}>GitHub Stars</p>
+          </a>
+        </article>
+
+        <article className="um-card" style={{ textAlign: "center" }}>
+          <a
+            href="https://github.com/UltimateMenu/UltimateMenu/forks"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: "none", display: "block" }}
+            aria-label="View UltimateMenu forks on GitHub"
+          >
+            <div className="um-card-icon" style={{ margin: "0 auto 14px" }}>
+              <GitFork aria-hidden="true" />
+            </div>
+            <AnimatedNumber end={forks} className="um-stat-num" />
+            <p style={{ fontSize: 13, marginTop: 4 }}>GitHub Forks</p>
+          </a>
+        </article>
+
+        <article className="um-card" style={{ textAlign: "center" }}>
+          <div className="um-card-icon" style={{ margin: "0 auto 14px" }}>
+            <Globe aria-hidden="true" />
+          </div>
+          <AnimatedNumber end={views} className="um-stat-num" />
+          <p style={{ fontSize: 13, marginTop: 4 }}>Page Views</p>
+        </article>
       </div>
     </section>
   )
